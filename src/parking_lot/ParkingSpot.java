@@ -6,6 +6,13 @@ public class ParkingSpot {
     private boolean isOccupied;
     private Vehicle parkedVehicle;
 
+    public ParkingSpot(String spotId, VehicleSize spotSize){
+        this.spotId = spotId;
+        this.spotSize = spotSize;
+        isOccupied = false;
+        parkedVehicle = null;
+    }
+
     public String getSpotId(){
         return spotId;
     }
@@ -14,12 +21,13 @@ public class ParkingSpot {
         return spotSize;
     }
 
-    public String isAvailable(){
-        return this.isOccupied ? "Spot Available." : "Spot Unavailable";
+    public boolean isAvailable(){
+        return !this.isOccupied;
     }
 
     public boolean canFitVehicle(Vehicle vehicle){
-        return false;
+        VehicleSize size = vehicle.getVehicleSize();
+        return size == spotSize;
     }
 
     public void parkVehicle(Vehicle vehicle){

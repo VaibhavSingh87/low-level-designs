@@ -6,13 +6,13 @@ import java.util.List;
 
 public class ParkingFloor {
     private int floor;
-    private HashMap<String, ParkingSpot> spots;
+    private final HashMap<String, ParkingSpot> spots = new HashMap<>();
 
     public List<ParkingSpot> findAvailableSpots(Vehicle vehicle){
         VehicleSize size = vehicle.getVehicleSize();
         List<ParkingSpot> availableSpots = new ArrayList<>();
         for(ParkingSpot parkingSpot : spots.values()){
-            if(size == parkingSpot.getSpotSize()){
+            if(parkingSpot.canFitVehicle(vehicle) && parkingSpot.isAvailable()){
                 availableSpots.add(parkingSpot);
             }
         }
@@ -25,7 +25,7 @@ public class ParkingFloor {
 
     public void displayAvailability(){
         for(ParkingSpot parkingSpot : spots.values()){
-            System.out.println(parkingSpot.getSpotId() + " " + parkingSpot.isAvailable());
+            System.out.println(parkingSpot.getSpotId() + " " + (parkingSpot.isAvailable() ? "Available" : "Unavailable"));
         }
     }
 }
